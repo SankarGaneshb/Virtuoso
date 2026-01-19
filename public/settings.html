@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Community Contribution Aggregator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Settings</h1>
+            <p>Connect your accounts to track your contributions</p>
+            <a href="/" class="back-link">← Back to Dashboard</a>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2>Link Accounts</h2>
+                <div class="form-group">
+                    <label for="github-username">GitHub Username</label>
+                    <div class="input-group">
+                        <input type="text" id="github-username" placeholder="e.g. torvalds">
+                        <button onclick="linkAccount('GitHub', 'github-username')">Connect</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="discord-id">Discord User ID</label>
+                    <div class="input-group">
+                        <input type="text" id="discord-id" placeholder="e.g. 123456789012345678">
+                        <button onclick="linkAccount('Discord', 'discord-id')">Connect</button>
+                    </div>
+                    <small>Enable Developer Mode on Discord to copy your User ID.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="youtube-id">YouTube Channel ID</label>
+                    <div class="input-group">
+                        <input type="text" id="youtube-id" placeholder="e.g. UC_x5XG1OV2P6uZZ5FSM9Ttw">
+                        <button onclick="linkAccount('YouTube', 'youtube-id')">Connect</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reddit-username">Reddit Username</label>
+                    <div class="input-group">
+                        <input type="text" id="reddit-username" placeholder="e.g. avid_coder">
+                        <button onclick="linkAccount('Reddit', 'reddit-username')">Connect</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="status-message"></div>
+        </main>
+    </div>
+
+    <script>
+        // Mock User Login ID for now
+        const CURRENT_USER_ID = 1;
+
+        async function linkAccount(platform, inputId) {
+            if (!inputId) {
+                // Fallback for older buttons if any
+                inputId = platform === 'GitHub' ? 'github-username' : 'discord-id';
+            }
+            let value = document.getElementById(inputId).value;
+
+            if (!value) return alert('Please enter a value');
+
+            try {
+                const response = await fetch(`/api/user/${CURRENT_USER_ID}/link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        platform: platform,
+                        platformUsername: value, // keeping it simple, treating ID as username/id mixed for now
+                        platformUserId: value // In real OAuth this would be distinct
+                    })
+                });
+
+                if (response.ok) {
+                    showMessage('Account linked successfully!', 'success');
+                } else {
+                    showMessage('Failed to link account.', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showMessage('Error linking account.', 'error');
+            }
+        }
+
+        function showMessage(msg, type) {
+            const el = document.getElementById('status-message');
+            el.textContent = msg;
+            el.className = type;
+        }
+    </script>
+
+    <style>
+        .back-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            flex: 1;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent-color);
+            color: #0f172a;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        small {
+            color: var(--text-secondary);
+            display: block;
+            margin-top: 5px;
+        }
+
+        #status-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .success {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+    </style>
+</body>
+
+</html>

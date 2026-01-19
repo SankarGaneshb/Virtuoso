@@ -1,0 +1,132 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #38bdf8;
+    --badge-bg: rgba(56, 189, 248, 0.1);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 400px);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.settings-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 10px;
+    display: inline-block;
+    margin-left: 15px;
+    /* Spacing */
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: inherit;
+    box-sizing: border-box;
+    /* Fix padding issues */
+}
+
+input {
+    /* Existing input style update */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    width: 100%;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    color: white;
+    padding: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.badge-item {
+    background: var(--badge-bg);
+    border: 1px solid var(--accent-color);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.badge-item:hover {
+    transform: translateY(-5px);
+}
+
+.timeline {
+    list-style: none;
+    padding: 0;
+}
+
+.loading {
+    color: var(--text-secondary);
+    font-style: italic;
+}

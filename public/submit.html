@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Contribution - Community Contribution Aggregator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Add Contribution</h1>
+            <p>Share your external publications, talks, or projects</p>
+            <a href="/" class="back-link">← Back to Dashboard</a>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2>Submission Details</h2>
+                <form id="submission-form" onsubmit="submitContribution(event)">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" placeholder="e.g. My Talk on GraphQL" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="url">URL</label>
+                        <input type="url" id="url" placeholder="https://..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category">
+                            <option value="publication">Publication/Article</option>
+                            <option value="talk">Conference Talk</option>
+                            <option value="project">Project Showcase</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description (Optional)</label>
+                        <textarea id="description" rows="3" placeholder="Brief summary..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Contribution</button>
+                </form>
+            </div>
+
+            <div id="status-message"></div>
+        </main>
+    </div>
+
+    <script>
+        const CURRENT_USER_ID = 1;
+
+        async function submitContribution(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const url = document.getElementById('url').value;
+            const category = document.getElementById('category').value;
+            const description = document.getElementById('description').value;
+            const btn = document.querySelector('.submit-btn');
+
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const response = await fetch(`/api/contributor/${CURRENT_USER_ID}/submit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title, url, category, description
+                    })
+                });
+
+                if (response.ok) {
+                    showMessage('Contribution submitted successfully! Redirecting...', 'success');
+                    setTimeout(() => window.location.href = '/', 1500);
+                } else {
+                    showMessage('Failed to submit.', 'error');
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Contribution';
+                }
+            } catch (error) {
+                console.error(error);
+                showMessage('Error submitting contribution.', 'error');
+                btn.disabled = false;
+            }
+        }
+
+        function showMessage(msg, type) {
+            const el = document.getElementById('status-message');
+            el.textContent = msg;
+            el.className = type;
+        }
+    </script>
+</body>
+
+</html>
