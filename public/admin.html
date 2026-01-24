@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtuoso Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Admin specific overrides */
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        .user-table th, .user-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .user-table th {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+        .user-table tr:last-child td {
+            border-bottom: none;
+        }
+        .user-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        .badge-github { background: rgba(86, 211, 100, 0.15); color: #56d364; }
+        .badge-discord { background: rgba(88, 101, 242, 0.15); color: #5865F2; }
+        .badge-none { background: rgba(255, 255, 255, 0.05); color: var(--text-secondary); }
+        .platform-icon { margin-right: 6px; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div>
+                <h1>Virtuoso Admin</h1>
+                <p class="subtitle">Community Management</p>
+            </div>
+            <a href="/" class="btn btn-secondary">Back to Home</a>
+        </header>
+
+        <div class="card">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Joined</th>
+                        <th>Linked Accounts</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="user-rows">
+                    <!-- Rows injected by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/admin.js"></script>
+</body>
+</html>

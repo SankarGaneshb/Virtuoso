@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtuoso - Community Contribution Aggregator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Community Contributions</h1>
+            <p>Celebrating our amazing contributors</p>
+            <div class="header-links">
+                <a href="submit.html" class="settings-link">➕ Add Contribution</a>
+                <a href="settings.html" class="settings-link">⚙️ Link Accounts</a>
+            </div>
+        </header>
+
+        <main>
+            <div id="profile-section" class="card">
+                <h2>Contributor Profile</h2>
+                <div id="user-info">
+                    <!-- User info will be loaded here -->
+                    <p class="loading">Loading profile...</p>
+                </div>
+            </div>
+
+            <div id="analytics-section" class="card">
+                <h2>Activity Dashboard</h2>
+
+                <!-- Summary Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-total">0</div>
+                        <div class="stat-label">Total Contributions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-prs">0</div>
+                        <div class="stat-label">Pull Requests</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-issues">0</div>
+                        <div class="stat-label">Issues Opened</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="stat-streak">0</div>
+                        <div class="stat-label">Current Streak</div>
+                    </div>
+                </div>
+
+                <!-- Main Chart -->
+                <div class="chart-wrapper">
+                    <canvas id="dailyActivityChart"></canvas>
+                </div>
+            </div>
+
+            <div id="badges-section" class="card">
+                <h2>Badges Earned</h2>
+                <div id="badges-grid" class="badges-grid">
+                    <!-- Badges will be loaded here -->
+                </div>
+            </div>
+
+            <div id="journey-section" class="card">
+                <h2>Contribution Journey</h2>
+                <ul id="timeline" class="timeline">
+                    <!-- Timeline items will be loaded here -->
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

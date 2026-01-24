@@ -1,0 +1,7 @@
+run = "node server.js"
+
+[nix]
+channel = "stable-23_05"
+
+[env]
+# Replit handles environment variables in their distinct "Secrets" tab.
